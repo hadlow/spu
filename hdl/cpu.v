@@ -5,6 +5,7 @@
 // Instruction cache/ROM
 module instruction_cache(
 	input [15:0] counter,
+
 	output [15:0] instruction
 );
 
@@ -16,6 +17,35 @@ module instruction_cache(
 	end
 
 	assign instruction = memory[address];
+
+endmodule
+
+module registers(
+	input clk,
+	input reg_write_enable,
+	input [2:0] reg_write_destination,
+	input [15:0] reg_write_data,
+	input [2:0] reg_read_address_1,
+	input [2:0] reg_read_address_2,
+
+	output [15:0] reg_read_data_1,
+	output [15:0] reg_read_data_2,
+);
+
+	reg [15:0] reg_mem [7:0];
+
+	integer i;
+
+	initial begin
+		for(i = 0; i < 8; i = i + 1)
+			reg_mem[i] <= 16'd0;
+	end
+
+	always @(posedge clk) begin
+		if(reg_write_enable) begin
+			reg_mem[reg_write_destination] <= reg_write_data;
+		end
+	end
 
 endmodule
 
