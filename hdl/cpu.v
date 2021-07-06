@@ -47,6 +47,9 @@ module registers(
 		end
 	end
 
+	assign reg_read_data_1 = reg_mem[reg_read_address_1];
+	assign reg_read_data_2 = reg_mem[reg_read_address_2];
+
 endmodule
 
 module cpu #(
